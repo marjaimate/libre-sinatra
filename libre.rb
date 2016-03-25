@@ -1,4 +1,5 @@
 require "yaml"
+require "json"
 require "sinatra"
 require 'sinatra/base'
 
@@ -9,12 +10,12 @@ class Libre < Sinatra::Base
 
   get "/ciudades" do
     ciudades = YAML.load_file("ciudades.yml")
-    erb :ciudades, locals: {ciudades: ciudades.values}
+    ciudades.to_json
   end
 
   get "/ciudades/:ciudad" do |ciudad|
     ciudades = YAML.load_file("ciudades.yml")
-    erb :ciudad, locals: {ciudad: ciudades[ciudad]}
+    ciudades[ciudad].to_json
   end
 
 end
